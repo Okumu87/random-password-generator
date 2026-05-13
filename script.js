@@ -14,6 +14,7 @@ function createPassword() {
     for (let i = 0; i < passwordLength; i++) {
         const randomNumber = Math.floor(Math.random() * chars.length);
         password += chars.substring(randomNumber, randomNumber + 1);
+
     }
     inputElement.value = password;
 }
@@ -21,8 +22,9 @@ function createPassword() {
 copyElement.addEventListener('click', () => {
     if (inputElement.value) {
         inputElement.select();
-        document.execCommand('copy');
-        showAlert('Password copied to clipboard!');
+        inputElement.setSelectionRange(0, 99999); // For mobile devices
+        navigator.clipboard.writeText(inputElement.value);
+        showAlert(`${inputElement.value} copied to clipboard!`);
     } else {
         showAlert('No password to copy!');
     }
